@@ -1,15 +1,12 @@
 ---
 import FeatureBanner from "@/componants/home/FeatureBanner.astro";
 import Hero from "@/componants/home/Hero.astro";
-import Projecttitle from "@/componants/ui/Projecttitle.astro";
+import ProjectSection from "@/componants/home/ProjectSection.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getEntry } from "astro:content";
-
-const project1 = await getEntry("projects", "custom-site-theming");
 ---
 
 <BaseLayout>
     <Hero />
     <FeatureBanner />
-    <Projecttitle data={project1.data} />
+    <ProjectSection />
 </BaseLayout>
