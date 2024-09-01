@@ -23,12 +23,12 @@ const projects = defineCollection({
 		z.object({
 			title: z.string(),
 			thumbnail: image(),
-			icon: z.array(reference("tools")),
+			icons: z.array(reference("tools")),
 			url: z.string().url(),
 		}),
 });
 
-export const collection = {
+export const collections = {
 	features,
 	tools,
 	projects,

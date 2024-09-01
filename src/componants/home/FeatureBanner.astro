@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Heading from "../ui/Heading.astro";
 import { Icon } from "astro-icon/components";
 
-const features = (await getCollection("features")) as { data: { icon: string; title: string; description: string } }[];
+const features = await getCollection("features");
 ---
 
 <section aria-lable="Featrue Banner" class="features">
@@ -13,7 +13,7 @@ const features = (await getCollection("features")) as { data: { icon: string; ti
         </Heading>
         <ul>
             {
-                features.map(({data} ) => (
+                features.map(({ data }) => (
                     <li>
                         <Icon name={data.icon} size={64} />
                         <Heading tagName="h3" size="h3">
