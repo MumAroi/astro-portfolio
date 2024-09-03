@@ -1,22 +1,57 @@
-<section aria-lable="Contact Form">
-    <form >
-        <button>Submit</button>
-    </form>
+---
+import { Image } from "astro:assets";
+
+import paramas from "@/assets/avatar.jpg";
+import Heading from "./ui/Heading.astro";
+---
+
+<section aria-lable="Contact Form" class="relative">
+    <div data-pattern=""></div>
+    <div class="form-wrapper">
+        <Image
+            src={paramas}
+            alt="Paramas Waewsuwan"
+            class="headshot"
+            width="700"
+            format="avif"
+        />
+        <form id="contact-form">
+            <Heading tagName="h2" size="h2"> Let's Connect! </Heading>
+            <p>Reach out below for inquiries, quotes, or collaborations.</p>
+            <div class="input-wrapper">
+                <label for="name">Frist Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="e.g., Paramas Waewsuwan"
+                />
+                <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="e.g., email@email.com"
+                />
+            </div>
+            <button type="submit" class="btn primary">Contact Me</button>
+        </form>
+        <p class="message"></p>
+    </div>
 </section>
 
 <script>
-    const form  = document.querySelector("form") as HTMLFormElement;
+    const form = document.querySelector("#contect-form") as HTMLFormElement;
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
         await fetch("http://localhost:3000/contacts", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 name: "chirs",
-                email: "email@email.com" 
-            })
-        }) 
-    })
+                email: "email@email.com",
+            }),
+        });
+    });
 </script>
