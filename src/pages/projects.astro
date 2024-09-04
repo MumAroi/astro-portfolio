@@ -3,17 +3,43 @@ import ContactForm from "@/componants/ContactForm.astro";
 import Hero from "@/componants/projects/Hero.astro";
 import Projecttitle from "@/componants/ui/ProjectTitle.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
+const allTools = await getCollection("tools");
+
 ---
 
 <BaseLayout title="Paramas Waewsuwan" description="Here are some recent projects I've done for clients" >
     <Hero />
-    <div class="grid-wrapper">
-        {
-            projects.slice(0, 3).map(({ data }) => <Projecttitle data={data} />)
-        } 
-    </div>∏
+    <div class="container">
+        <div class="filter-wrapper">
+            <div class="columns">
+                <p>Fillter by tools</p>
+                <button class="btn badge relative" aria-pressed="true">
+                    <Icon name="icon--close" aria-hidden="true" size={18} class="close" />
+                    <span>Clear all</span>
+                </button>
+            </div>
+            <ul>
+                {
+                    allTools.map((t) => (
+                        <li>
+                            <button class="btn badge relative" data-tool=""tabindex="t.id" aria-pressed="true">
+                                <span>{t.data.title}</span>
+                                <Icon name="icon--close" aria-hidden="true" size={18} class="close" />
+                            </button>
+                        </li>
+                    ))
+                } 
+            </ul>
+        </div>
+        <div class="grid-wrapper">
+            {
+                projects.slice(0, 3).map(({ data }) => <Projecttitle data={data} />)
+            } 
+        </div>
+    </div>
     <ContactForm />
 </BaseLayout>
