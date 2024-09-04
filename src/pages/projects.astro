@@ -1,0 +1,19 @@
+---
+import ContactForm from "@/componants/ContactForm.astro";
+import Hero from "@/componants/projects/Hero.astro";
+import Projecttitle from "@/componants/ui/ProjectTitle.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+---
+
+<BaseLayout title="Paramas Waewsuwan" description="Here are some recent projects I've done for clients" >
+    <Hero />
+    <div class="grid-wrapper">
+        {
+            projects.slice(0, 3).map(({ data }) => <Projecttitle data={data} />)
+        } 
+    </div>∏
+    <ContactForm />
+</BaseLayout>
