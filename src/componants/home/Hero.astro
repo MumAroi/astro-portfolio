@@ -1,0 +1,22 @@
+---
+import Link from "../ui/Link.astro";
+import Heading from "../ui/Heading.astro";
+import { Image } from "astro:assets";
+import avatarImage from "@/assets/avatar.jpg";
+---
+
+<header aria-lable="Introduction to Pro" class="hero-home">
+    <Image  
+        src={avatarImage}
+        alt="Paramas Waewsuwan"
+        width={200}
+        class="avatar"
+        format="avif"
+    />
+    <Heading tagName="h3" size="h1">👋 Hi, I’m Por</Heading>
+    <p>I’m a web developer passionate about creating innovative and user-friendly websites.</p>
+    <div>
+        <Link href="#" variant="secondary" >Dowload CV</Link>
+        <Link href="#contact" >Let's Connect</Link>
+    </div>
+</header>

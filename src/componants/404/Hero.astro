@@ -1,0 +1,22 @@
+---
+import Link from "../ui/Link.astro";
+import Heading from "../ui/Heading.astro";
+import { Image } from "astro:assets";
+import avatarImage from "@/assets/avatar.jpg";
+---
+
+<header aria-lable="Introduction to Pro" class="hero-not-found">
+    <Image  
+        src={avatarImage}
+        alt="Paramas Waewsuwan"
+        width={200}
+        class="avatar"
+        format="avif"
+    />
+    <Heading tagName="h3" size="h1">Are you lost?</Heading>
+    <p>Oops! The page you're looking for seems ot have wanderd off. Please try again or visit our homepage for more information.</p>
+    <div>
+        <Link href="#" variant="secondary" >Dowload CV</Link>
+        <Link href="/" >Go Home</Link>
+    </div>
+</header>
