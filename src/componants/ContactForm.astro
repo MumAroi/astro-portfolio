@@ -40,18 +40,52 @@ import Heading from "./ui/Heading.astro";
 </section>
 
 <script>
-    const form = document.querySelector("#contect-form") as HTMLFormElement;
-    form.addEventListener("submit", async (event) => {
+    const contactForm = document.querySelector("#contact-form") as HTMLFormElement;
+    const messageParagraph = document.querySelector(".message") as HTMLParagraphElement;
+
+    const updateMessages = (message: string, type: "error" | "success") => {
+        messageParagraph.classList.add(type);
+        messageParagraph.textContent = message;
+        setTimeout(() => {
+            messageParagraph.textContent = "";
+            messageParagraph.classList.remove(type);
+        }, 3000)
+    }
+    contactForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-        await fetch("http://localhost:3000/contacts", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                name: "chirs",
-                email: "email@email.com",
-            }),
-        });
+        const formData = new FormData(contactForm);
+        const {name, email} = Object.fromEntries(formData)
+
+        if(!name || typeof name !== "string" || name.length < 2) {
+            return updateMessages("Please enter a valid name", "error");
+        }
+        
+        if(!email || typeof email !== "string" || email.includes("@")) {
+            return updateMessages("Please enter a valid email", "error");
+        }
+
+        try {
+            const res = await fetch("http://localhost:3000/contacts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                }),
+            });
+            if(!res.ok){
+                throw new Error("Response was not OK");
+            }
+            contactForm.reset();
+            return updateMessages("Thanks for reaching out!", "success");
+        } catch (error) {
+            if(error instanceof Error) {
+                console.error(error.message)
+                return updateMessages(error.message, "error");
+            }
+            return updateMessages("Something went wrong", "error");
+        } 
     });
 </script>
