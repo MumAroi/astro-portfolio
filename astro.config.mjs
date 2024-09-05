@@ -4,9 +4,15 @@ import icon from "astro-icon";
 
 import netlify from "@astrojs/netlify";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [icon()],
-  output: "hybrid",
-  adapter: netlify(),
+	prefetch: {
+		prefetchAll: true,
+	},
+	site: "https://stargazers.club",
+	integrations: [icon(), sitemap()],
+	output: "hybrid",
+	adapter: netlify(),
 });
