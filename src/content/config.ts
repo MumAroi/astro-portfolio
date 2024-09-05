@@ -28,8 +28,27 @@ const projects = defineCollection({
 		}),
 });
 
+const posts = defineCollection({
+	type: "content",
+	schema: ({ image }) =>
+		z.object({
+			title: z.string().max(65, {
+				message: "Title must be less than 65 characters",
+			}),
+			description: z.string().max(165, {
+				message: "Description must be less than 165 characters",
+			}),
+			thumbnail: image().refine((image) => image.width > 1000, {
+				message: "Image must be 1000px wide or more",
+			}),
+			pubDate: z.date(),
+			isDraft: z.boolean().optional(),
+		}),
+});
+
 export const collections = {
 	features,
 	tools,
 	projects,
+	posts
 };
